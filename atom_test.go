@@ -9,6 +9,7 @@ import (
 func Test_AtomPool_AllocAndFree(t *testing.T) {
 	pool := NewAtomPool(128, 64*1024, 2, 1024*1024)
 	for i := 0; i < len(pool.classes); i++ {
+
 		temp := make([][]byte, len(pool.classes[i].chunks))
 
 		for j := 0; j < len(temp); j++ {
@@ -16,6 +17,8 @@ func Test_AtomPool_AllocAndFree(t *testing.T) {
 			utest.EqualNow(t, cap(mem), pool.classes[i].size)
 			temp[j] = mem
 		}
+
+		
 		utest.Assert(t, pool.classes[i].head == 0)
 
 		for j := 0; j < len(temp); j++ {
